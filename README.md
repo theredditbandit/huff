@@ -1,3 +1,3 @@
 # Huff 
 
-Once built , this is a compression tool that uses huffman coding/encoding to compress and inflate text files
+Using huffman coding to compress and decompress files.
