@@ -1,33 +1,33 @@
 // Description: Huffman encoder implementation
 package pkg
 
-import (
-	"sort"
-)
-
-type Node struct {
-	Freq  int
-	Val   string
-	Left  *Node
-	Right *Node
+type HuffmanTree struct {
+	Root *Node
 }
 
 func BuildHuffmanTree(stats map[string]int) {
 	nodes := GenNodes(stats)
-	_ = nodes
+	for nodes.Len() > 1 {
+		left := nodes.Pop()
+		right := nodes.Pop()
+		parent := Node{
+			Freq:  left.Freq + right.Freq,
+			Left:  &left,
+			Right: &right,
+		}
+		nodes.Add(parent)
+	}
 }
 
-func GenNodes(stats map[string]int) []Node {
-	var treeNodes []Node
+// GenNodes returns a slice of sorted nodes from the input map
+func GenNodes(stats map[string]int) SortedNodes {
+	var treeNodes SortedNodes
 	for k, v := range stats {
 		n := Node{
 			Freq: v,
 			Val:  k,
 		}
-		treeNodes = append(treeNodes, n)
+		treeNodes.Add(n)
 	}
-	sort.Slice(treeNodes, func(i, j int) bool {
-		return treeNodes[i].Freq < treeNodes[j].Freq
-	})
 	return treeNodes
 }

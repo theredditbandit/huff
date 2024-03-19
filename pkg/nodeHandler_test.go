@@ -1,4 +1,3 @@
-// Description: Huffman encoder implementation
 package pkg
 
 import (
@@ -6,24 +5,15 @@ import (
 	"testing"
 )
 
-func Test_genNodes(t *testing.T) {
-	type args struct {
-		stats map[string]int
-	}
+func TestSortedNodes_Pop(t *testing.T) {
 	tests := []struct {
 		name string
-		args args
-		want SortedNodes
+		s    *SortedNodes
+		want Node
 	}{
 		{
 			name: "Test node generation in sorted order",
-			args: args{
-				stats: map[string]int{
-					"c": 5,
-					"d": 2,
-				},
-			},
-			want: []Node{
+			s: &SortedNodes{
 				{
 					Freq:  2,
 					Val:   "d",
@@ -37,12 +27,19 @@ func Test_genNodes(t *testing.T) {
 					Right: nil,
 				},
 			},
+			want: Node{
+				Freq:  2,
+				Val:   "d",
+				Left:  nil,
+				Right: nil,
+			},
 		},
 	}
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := GenNodes(tt.args.stats); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("genNodes() = %v, want %v", got, tt.want)
+			if got := tt.s.Pop(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("SortedNodes.Pop() = %v, want %v", got, tt.want)
 			}
 		})
 	}

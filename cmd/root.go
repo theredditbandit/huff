@@ -2,12 +2,10 @@ package cmd
 
 import (
 	"fmt"
-	"os"
-
-	"huff/pkg"
-
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
+	"huff/pkg"
+	"os"
 )
 
 var rootCmd = &cobra.Command{
@@ -38,7 +36,7 @@ var rootCmd = &cobra.Command{
 			}
 			stats := pkg.GetStats(data)
 			logStats(stats)
-            
+
 		}
 	},
 }
